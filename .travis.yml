@@ -10,5 +10,5 @@ install:
 
 script:
   - . "/opt/qt57/bin/qt57-env.sh"
-  - cd qt/cmake
+  - cd cmake
   - sh run.sh
