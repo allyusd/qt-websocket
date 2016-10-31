@@ -1,4 +1,4 @@
-#include "WebSocketServer.h"
+#include "websocketserver.h"
 
 #include <QWebSocket>
 #include <QWebSocketServer>
