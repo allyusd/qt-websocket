@@ -17,24 +17,28 @@ FILE(GLOB_RECURSE ALL_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 
 add_library(${PROJECT_NAME}Lib ${ALL_FILES})
 
-# for the VS folders to mirror the folder structure of your project
-foreach(FILE ${ALL_FILES}) 
-  get_filename_component(PARENT_DIR "${FILE}" PATH)
+if (MSVC)
+  # for the VS folders to mirror the folder structure of your project
+  foreach(FILE ${ALL_FILES}) 
+    get_filename_component(PARENT_DIR "${FILE}" PATH)
 
-  # skip src or include
-  #string(REGEX REPLACE "(\\./)?(src|include)/?" "" GROUP "${PARENT_DIR}")
+    # skip src or include
+    #string(REGEX REPLACE "(\\./)?(src|include)/?" "" GROUP "${PARENT_DIR}")
 
-  # skip ../
-  string(REPLACE "../" "" GROUP "${PARENT_DIR}")
+    # skip ../
+    string(REPLACE "../" "" GROUP "${PARENT_DIR}")
 
-  # changes /'s to \\'s
-  string(REPLACE "/" "\\" GROUP "${GROUP}")
+    # changes /'s to \\'s
+    string(REPLACE "/" "\\" GROUP "${GROUP}")
 
-  source_group("${GROUP}" FILES "${FILE}")
-endforeach()
+    source_group("${GROUP}" FILES "${FILE}")
+  endforeach()
 
-# add automoc file and autorcc file to group
-source_group("zzzautofile" REGULAR_EXPRESSION "(.*_automoc\\.cpp|qrc_.*)")
+  # add automoc file and autorcc file to group
+  source_group("zzzautofile" REGULAR_EXPRESSION "(.*_automoc\\.cpp|qrc_.*)")
+
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+endif(MSVC)
 
 target_link_libraries(${PROJECT_NAME}Lib Qt5::Network Qt5::WebSockets)
 
