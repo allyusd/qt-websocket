@@ -12,3 +12,12 @@ script:
   - . "/opt/qt57/bin/qt57-env.sh"
   - cd cmake
   - sh run.sh
+
+addons:
+  sonarcloud:
+    organization: "allyusd-github" # the key of the org you chose at step #3
+    token:
+      secure: $SONAR_TOKEN # encrypted value of your token
+script:
+  # other script steps might be done before running the actual analysis
+  - sonar-scanner
