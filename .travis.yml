@@ -11,7 +11,7 @@ install:
 script:
   - . "/opt/qt57/bin/qt57-env.sh"
   - cd cmake
-  - sh run.sh
+  - build-wrapper-linux-x86-64 --out-dir bw-output sh run.sh
 
 addons:
   sonarcloud:
