@@ -11,7 +11,8 @@ install:
 script:
   - . "/opt/qt57/bin/qt57-env.sh"
   - cd cmake
-  - build-wrapper-linux-x86-64 --out-dir bw-output sh run.sh
+  - build-wrapper-linux-x86-64 --out-dir ../bw-output sh run.sh
+  - cd ..
   # other script steps might be done before running the actual analysis
   - sonar-scanner
 
